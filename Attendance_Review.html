@@ -4,6 +4,8 @@
 <head>
     <title>ATTENDANCE REVIEW</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -14,13 +16,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             transition: background-color 0.5s;
         }
 
         h1 {
             color: #333;
-            margin-top: 20px; /* Increased top margin */
+            margin-top: 20px;
             transition: color 0.5s;
         }
 
@@ -30,8 +32,8 @@
         }
 
         .button-85 {
-            padding: 1em 3em; /* Increased button size */
-            font-size: 1em; /* Adjusted font size */
+            padding: 1em 3em;
+            font-size: 1em;
             border: none;
             outline: none;
             color: rgb(255, 255, 255);
@@ -43,12 +45,12 @@
             user-select: none;
             -webkit-user-select: none;
             touch-action: manipulation;
-            margin-top: 10px; /* Increased top margin for buttons */
+            margin-top: 10px;
             transition: background 0.3s, transform 0.3s;
         }
 
         .button-85:hover {
-            background: #333; /* Darker background on hover */
+            background: #333;
         }
 
         .button-85:before {
@@ -102,15 +104,15 @@
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            transition: background-color 0.3s, border-color 0.3s; /* Added border-color transition */
-            appearance: none; /* Hide spinner arrows */
-            -moz-appearance: textfield; /* Firefox */
+            transition: background-color 0.3s, border-color 0.3s;
+            appearance: none;
+            -moz-appearance: textfield;
             width: 80%;
         }
 
         input:focus {
             background-color: lightblue;
-            border-color: #28a745; /* Green border when focused */
+            border-color: #28a745;
         }
 
         .output-container {
@@ -144,7 +146,6 @@
             margin-top: 10px;
         }
 
-        /* Media queries for responsiveness */
         @media only screen and (max-width: 600px) {
             h1,
             h2 {
@@ -155,12 +156,9 @@
                 font-size: 0.8em;
                 padding: 0.6em 2em;
             }
-        }
 
-        @media only screen and (min-width: 601px) and (max-width: 900px) {
-            h1,
-            h2 {
-                font-size: 2em;
+            input {
+                width: 100%;
             }
         }
     </style>
@@ -284,16 +282,16 @@
     <div id="manual">
         <h2>Manual Check</h2>
         <label for="cur">Enter total present days:</label>
-        <input type="number" id="cur" oninput="this.style.backgroundColor='lightblue';this.style.borderColor='#28a745';"><br>
+        <input type="number" id="cur" oninput="this.style.backgroundColor='lightblue'; this.style.borderColor='#28a745';"><br>
 
         <label for="tot">Enter total conducted days:</label>
-        <input type="number" id="tot" oninput="this.style.backgroundColor='lightblue';this.style.borderColor='#28a745';"><br>
+        <input type="number" id="tot" oninput="this.style.backgroundColor='lightblue'; this.style.borderColor='#28a745';"><br>
 
         <label for="a">Enter number of classes you will attend:</label>
-        <input type="number" id="a" oninput="this.style.backgroundColor='lightblue';this.style.borderColor='#28a745';"><br>
+        <input type="number" id="a" oninput="this.style.backgroundColor='lightblue'; this.style.borderColor='#28a745';"><br>
 
         <label for="e">Enter number of classes you won't attend:</label>
-        <input type="number" id="e" oninput="this.style.backgroundColor='lightblue';this.style.borderColor='#28a745';"><br>
+        <input type="number" id="e" oninput="this.style.backgroundColor='lightblue'; this.style.borderColor='#28a745';"><br>
 
         <div class="calculate-button-container">
             <button onclick="calculateManual()" class="button-85" id="calculate-btn">Calculate</button>
@@ -305,13 +303,13 @@
     <div id="percentageGoal">
         <h2>Percentage Goal</h2>
         <label for="cur-goal">Enter total classes present:</label>
-        <input type="number" id="cur-goal" oninput="this.style.backgroundColor='lightblue';this.style.borderColor='#28a745';"><br>
+        <input type="number" id="cur-goal" oninput="this.style.backgroundColor='lightblue'; this.style.borderColor='#28a745';"><br>
 
         <label for="tot-goal">Enter total classes conducted:</label>
-        <input type="number" id="tot-goal" oninput="this.style.backgroundColor='lightblue';this.style.borderColor='#28a745';"><br>
+        <input type="number" id="tot-goal" oninput="this.style.backgroundColor='lightblue'; this.style.borderColor='#28a745';"><br>
 
         <label for="con-goal">Enter your required percentage:</label>
-        <input type="number" id="con-goal" oninput="this.style.backgroundColor='lightblue';this.style.borderColor='#28a745';"><br>
+        <input type="number" id="con-goal" oninput="this.style.backgroundColor='lightblue'; this.style.borderColor='#28a745';"><br>
 
         <div class="calculate-button-container">
             <button onclick="calculatePercentageGoal()" class="button-85" id="calculate-btn">Calculate</button>

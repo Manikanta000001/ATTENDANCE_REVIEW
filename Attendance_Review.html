@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ATTENDANCE REVIEW</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            transition: background-color 0.5s;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .button-85 {
+            padding: 0.6em 2em;
+            border: none;
+            outline: none;
+            color: rgb(255, 255, 255);
+            background: #111;
+            cursor: pointer;
+            position: relative;
+            z-index: 0;
+            border-radius: 10px;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        .button-85:before {
+            content: "";
+            background: linear-gradient(
+                45deg,
+                #ff0000,
+                #ff7300,
+                #fffb00,
+                #48ff00,
+                #00ffd5,
+                #002bff,
+                #7a00ff,
+                #ff00c8,
+                #ff0000
+            );
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing-button-85 20s linear infinite;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: 10px;
+        }
+
+        @keyframes glowing-button-85 {
+            0% {
+                background-position: 0 0;
+            }
+            50% {
+                background-position: 400% 0;
+            }
+            100% {
+                background-position: 0 0;
+            }
+        }
+
+        .button-85:after {
+            z-index: -1;
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #222;
+            left: 0;
+            top: 0;
+            border-radius: 10px;
+        }
+
+        input {
+            margin: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        input:focus {
+            background-color: lightblue;
+        }
+
+        .output-container {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: none;
+            transition: opacity 0.5s;
+        }
+
+        .output-number {
+            color: green;
+            font-weight: bold;
+        }
+
+        #manual, #percentageGoal, #home-btn {
+            display: none;
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .calculate-button-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        function calculateManual() {
+            var cur = parseInt(document.getElementById("cur").value);
+            var tot = parseInt(document.getElementById("tot").value);
+            var a = parseInt(document.getElementById("a").value);
+            var e = parseInt(document.getElementById("e").value);
+
+            if (isNaN(cur) || isNaN(tot) || isNaN(a) || isNaN(e)) {
+                document.getElementById("manual-error").innerHTML = "You haven't entered all details , please fill them.";
+                return;
+            }
+
+            var c = cur + a ;
+            var d = tot + a + e;
+            var per = (c / d) * 100;
+
+            document.getElementById("output-manual").innerHTML =
+                "Your Percentage: <span class='output-number'>" + per.toFixed(2) +
+                "</span><br>Total Classes Present: <span class='output-number'>" + c +
+                "</span><br>Total Classes Conducted: <span class='output-number'>" + d + "</span>";
+
+            document.getElementById("output-manual").style.display = "block";
+            document.getElementById("home-btn").style.display = "block";
+            document.getElementById("calculate-btn").style.display = "block";
+            hideHeaderAndButtons();
+            document.getElementById("manual-error").innerHTML = "";
+        }
+
+        function calculatePercentageGoal() {
+            var cur = parseInt(document.getElementById("cur-goal").value);
+            var tot = parseInt(document.getElementById("tot-goal").value);
+            var con = parseInt(document.getElementById("con-goal").value);
+
+            if (isNaN(cur) || isNaN(tot) || isNaN(con)) {
+                document.getElementById("percentageGoal-error").innerHTML = "You haven't entered all details , please fill them.";
+                return;
+            }
+
+            var p = con / 100;
+            var a = p * tot - cur;
+            var b = 1 - p;
+            var x = a / b;
+            var i = parseInt(x);
+            var d = i / 8;
+            var current = (cur / tot) * 100;
+
+            document.getElementById("output-percentage").innerHTML =
+                "Your current percentage is <span class='output-number'>" + current.toFixed(2) + "%</span>" +
+                "<br>The number of classes required are <span class='output-number'>" + i +
+                "</span><br>Total Classes Present after attending required classes: <span class='output-number'>" + (cur + i) +
+                "</span><br>Total Classes Conducted after attending required classes: <span class='output-number'>" + (tot + i) +
+                "</span><br>This can be reached almost within <span class='output-number'>" + d + " working days</span> (assuming 8 classes per day)";
+
+            document.getElementById("output-percentage").style.display = "block";
+            document.getElementById("home-btn").style.display = "block";
+            document.getElementById("calculate-btn").style.display = "block";
+            hideHeaderAndButtons();
+            document.getElementById("percentageGoal-error").innerHTML = "";
+        }
+
+        function showManual() {
+            document.getElementById("manual").style.display = "block";
+            document.getElementById("percentageGoal").style.display = "none";
+            document.getElementById("output-manual").style.display = "none";
+            document.getElementById("output-percentage").style.display = "none";
+            document.getElementById("home-btn").style.display = "none";
+            document.getElementById("calculate-btn").style.display = "block";
+            hideHeaderAndButtons();
+            document.getElementById("manual-error").innerHTML = "";
+        }
+
+        function showPercentageGoal() {
+            document.getElementById("percentageGoal").style.display = "block";
+            document.getElementById("manual").style.display = "none";
+            document.getElementById("output-manual").style.display = "none";
+            document.getElementById("output-percentage").style.display = "none";
+            document.getElementById("home-btn").style.display = "none";
+            document.getElementById("calculate-btn").style.display = "block";
+            hideHeaderAndButtons();
+            document.getElementById("percentageGoal-error").innerHTML = "";
+        }
+
+        function goHome() {
+            document.getElementById("manual").style.display = "none";
+            document.getElementById("percentageGoal").style.display = "none";
+            document.getElementById("output-manual").style.display = "none";
+            document.getElementById("output-percentage").style.display = "none";
+            document.getElementById("home-btn").style.display = "none";
+            document.getElementById("calculate-btn").style.display = "none";
+            showHeaderAndButtons();
+        }
+
+        function hideHeaderAndButtons() {
+            document.getElementById("manual-btn").style.display = "none";
+            document.getElementById("percentageGoal-btn").style.display = "none";
+            document.getElementById("header").style.display = "none";
+        }
+
+        function showHeaderAndButtons() {
+            document.getElementById("manual-btn").style.display = "block";
+            document.getElementById("percentageGoal-btn").style.display = "block";
+            document.getElementById("header").style.display = "block";
+        }
+    </script>
+
+    <div id="header">
+        <h1>ATTENDANCE REVIEW</h1>
+        <button onclick="showManual()" class="button-85" id="manual-btn">Manual Check</button>
+        <button onclick="showPercentageGoal()" class="button-85" id="percentageGoal-btn">Percentage Goal</button>
+    </div>
+
+    <button onclick="goHome()" class="button-85" id="home-btn" style="display:none;">Go Home</button>
+
+    <div id="manual">
+        <h2>Manual Check</h2>
+        <label for="cur">Enter total present days:</label>
+        <input type="number" id="cur" oninput="this.style.backgroundColor='lightblue'; onkeydown="return false;"><br>
+
+        <label for="tot">Enter total conducted days:</label>
+        <input type="number" id="tot" oninput="this.style.backgroundColor='lightblue';"><br>
+
+        <label for="a">Enter number of classes you will attend:</label>
+        <input type="number" id="a" oninput="this.style.backgroundColor='lightblue';"><br>
+
+        <label for="e">Enter number of classes you won't attend:</label>
+        <input type="number" id="e" oninput="this.style.backgroundColor='lightblue';"><br>
+
+        <div class="calculate-button-container">
+            <button onclick="calculateManual()" class="button-85" id="calculate-btn">Calculate</button>
+        </div>
+        <div id="output-manual" class="output-container"></div>
+        <div id="manual-error" class="error-message"></div>
+    </div>
+
+    <div id="percentageGoal">
+        <h2>Percentage Goal</h2>
+        <label for="cur-goal">Enter total classes present:</label>
+        <input type="number" id="cur-goal" oninput="this.style.backgroundColor='lightblue';"><br>
+
+        <label for="tot-goal">Enter total classes conducted:</label>
+        <input type="number" id="tot-goal" oninput="this.style.backgroundColor='lightblue';"><br>
+
+        <label for="con-goal">Enter your required percentage:</label>
+        <input type="number" id="con-goal" oninput="this.style.backgroundColor='lightblue';"><br>
+
+        <div class="calculate-button-container">
+            <button onclick="calculatePercentageGoal()" class="button-85" id="calculate-btn">Calculate</button>
+        </div>
+        <div id="output-percentage" class="output-container"></div>
+        <div id="percentageGoal-error" class="error-message"></div>
+    </div>
+
+</body>
+
+</html>

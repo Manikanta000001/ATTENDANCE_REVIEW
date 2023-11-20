@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>ATTENDANCE REVIEW</title>
@@ -18,12 +18,20 @@
             transition: background-color 0.5s;
         }
 
-        h1, h2 {
+        h1 {
             color: #333;
+            margin-top: 20px; /* Increased top margin */
+            transition: color 0.5s;
+        }
+
+        h2 {
+            color: #333;
+            transition: color 0.5s;
         }
 
         .button-85 {
-            padding: 0.6em 2em;
+            padding: 1em 3em; /* Increased button size */
+            font-size: 1em; /* Adjusted font size */
             border: none;
             outline: none;
             color: rgb(255, 255, 255);
@@ -35,6 +43,12 @@
             user-select: none;
             -webkit-user-select: none;
             touch-action: manipulation;
+            margin-top: 10px; /* Increased top margin for buttons */
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .button-85:hover {
+            background: #333; /* Darker background on hover */
         }
 
         .button-85:before {
@@ -66,15 +80,9 @@
         }
 
         @keyframes glowing-button-85 {
-            0% {
-                background-position: 0 0;
-            }
-            50% {
-                background-position: 400% 0;
-            }
-            100% {
-                background-position: 0 0;
-            }
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
         }
 
         .button-85:after {
@@ -94,11 +102,15 @@
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, border-color 0.3s; /* Added border-color transition */
+            appearance: none; /* Hide spinner arrows */
+            -moz-appearance: textfield; /* Firefox */
+            width: 80%;
         }
 
         input:focus {
             background-color: lightblue;
+            border-color: #28a745; /* Green border when focused */
         }
 
         .output-container {
@@ -115,7 +127,9 @@
             font-weight: bold;
         }
 
-        #manual, #percentageGoal, #home-btn {
+        #manual,
+        #percentageGoal,
+        #home-btn {
             display: none;
             transition: opacity 0.5s, transform 0.5s;
         }
@@ -128,6 +142,26 @@
         .error-message {
             color: red;
             margin-top: 10px;
+        }
+
+        /* Media queries for responsiveness */
+        @media only screen and (max-width: 600px) {
+            h1,
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .button-85 {
+                font-size: 0.8em;
+                padding: 0.6em 2em;
+            }
+        }
+
+        @media only screen and (min-width: 601px) and (max-width: 900px) {
+            h1,
+            h2 {
+                font-size: 2em;
+            }
         }
     </style>
 </head>
@@ -142,11 +176,11 @@
             var e = parseInt(document.getElementById("e").value);
 
             if (isNaN(cur) || isNaN(tot) || isNaN(a) || isNaN(e)) {
-                document.getElementById("manual-error").innerHTML = "You haven't entered all details , please fill them.";
+                document.getElementById("manual-error").innerHTML = "You haven't entered all details, please fill them.";
                 return;
             }
 
-            var c = cur + a ;
+            var c = cur + a;
             var d = tot + a + e;
             var per = (c / d) * 100;
 
@@ -168,7 +202,7 @@
             var con = parseInt(document.getElementById("con-goal").value);
 
             if (isNaN(cur) || isNaN(tot) || isNaN(con)) {
-                document.getElementById("percentageGoal-error").innerHTML = "You haven't entered all details , please fill them.";
+                document.getElementById("percentageGoal-error").innerHTML = "You haven't entered all details, please fill them.";
                 return;
             }
 
@@ -250,16 +284,16 @@
     <div id="manual">
         <h2>Manual Check</h2>
         <label for="cur">Enter total present days:</label>
-        <input type="number" id="cur" oninput="this.style.backgroundColor='lightblue';"><br>
+        <input type="number" id="cur" oninput="this.style.backgroundColor='lightblue';this.style.borderColor='#28a745';"><br>
 
         <label for="tot">Enter total conducted days:</label>
-        <input type="number" id="tot" oninput="this.style.backgroundColor='lightblue';"><br>
+        <input type="number" id="tot" oninput="this.style.backgroundColor='lightblue';this.style.borderColor='#28a745';"><br>
 
         <label for="a">Enter number of classes you will attend:</label>
-        <input type="number" id="a" oninput="this.style.backgroundColor='lightblue';"><br>
+        <input type="number" id="a" oninput="this.style.backgroundColor='lightblue';this.style.borderColor='#28a745';"><br>
 
         <label for="e">Enter number of classes you won't attend:</label>
-        <input type="number" id="e" oninput="this.style.backgroundColor='lightblue';"><br>
+        <input type="number" id="e" oninput="this.style.backgroundColor='lightblue';this.style.borderColor='#28a745';"><br>
 
         <div class="calculate-button-container">
             <button onclick="calculateManual()" class="button-85" id="calculate-btn">Calculate</button>
@@ -271,13 +305,13 @@
     <div id="percentageGoal">
         <h2>Percentage Goal</h2>
         <label for="cur-goal">Enter total classes present:</label>
-        <input type="number" id="cur-goal" oninput="this.style.backgroundColor='lightblue';"><br>
+        <input type="number" id="cur-goal" oninput="this.style.backgroundColor='lightblue';this.style.borderColor='#28a745';"><br>
 
         <label for="tot-goal">Enter total classes conducted:</label>
-        <input type="number" id="tot-goal" oninput="this.style.backgroundColor='lightblue';"><br>
+        <input type="number" id="tot-goal" oninput="this.style.backgroundColor='lightblue';this.style.borderColor='#28a745';"><br>
 
         <label for="con-goal">Enter your required percentage:</label>
-        <input type="number" id="con-goal" oninput="this.style.backgroundColor='lightblue';"><br>
+        <input type="number" id="con-goal" oninput="this.style.backgroundColor='lightblue';this.style.borderColor='#28a745';"><br>
 
         <div class="calculate-button-container">
             <button onclick="calculatePercentageGoal()" class="button-85" id="calculate-btn">Calculate</button>
@@ -288,4 +322,4 @@
 
 </body>
 
-    </html>
+</html>

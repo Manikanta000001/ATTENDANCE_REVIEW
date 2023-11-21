@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +30,25 @@
         h2 {
             color: #333;
             transition: color 0.5s;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Optional: Style the input to provide a visual cue that it's a number input */
+        input[type="number"] {
+            margin: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: background-color 0.3s, border-color 0.3s;
+            width: 80%;
         }
 
         .button-85 {
@@ -167,6 +187,20 @@
 <body>
 
     <script>
+         document.addEventListener("DOMContentLoaded", function () {
+            // Add event listeners for "Enter" key on input fields
+            var inputFields = document.querySelectorAll('input[type="number"]');
+            inputFields.forEach(function (input, index, array) {
+                input.addEventListener("keydown", function (event) {
+                    if (event.key === "Enter") {
+                        event.preventDefault(); // Prevent form submission
+                        input.blur(); // Unfocus the current input field
+                        // Focus on the next input field (or the first one if it's the last)
+                        array[(index + 1) % array.length].focus();
+                    }
+                });
+            });
+        });
         function calculateManual() {
             var cur = parseInt(document.getElementById("cur").value);
             var tot = parseInt(document.getElementById("tot").value);
@@ -177,7 +211,7 @@
                 document.getElementById("manual-error").innerHTML = "You haven't entered all details, please fill them.";
                 return;
             }
-            
+           
 
 
             var c = cur + a;

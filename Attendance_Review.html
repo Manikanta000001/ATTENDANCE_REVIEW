@@ -177,6 +177,11 @@
                 document.getElementById("manual-error").innerHTML = "You haven't entered all details, please fill them.";
                 return;
             }
+            if (!isNumeric(cur) || !isNumeric(tot) || !isNumeric(con)) {
+                document.getElementById("percentageGoal-error").innerHTML = "Please enter valid numeric values.";
+                return;
+            }
+
 
             var c = cur + a;
             var d = tot + a + e;
@@ -203,6 +208,15 @@
                 document.getElementById("percentageGoal-error").innerHTML = "You haven't entered all details, please fill them.";
                 return;
             }
+            if (!isNumeric(cur) || !isNumeric(tot) || !isNumeric(a) || !isNumeric(e)) {
+                document.getElementById("manual-error").innerHTML = "Please enter valid numeric values.";
+                return;
+            }
+            if (cur === tot ) {
+                 document.getElementById("percentageGoal-error").innerHTML =
+                "Since your attendance is 100%, try another requirement.";
+                return;
+            }
 
             var p = con / 100;
             var a = p * tot - cur;
@@ -211,6 +225,12 @@
             var i = parseInt(x);
             var d = i / 8;
             var current = (cur / tot) * 100;
+
+            if (cur !== tot && con >= 100) {
+            document.getElementById("percentageGoal-error").innerHTML =
+            "Due to missed classes, it is impossible to get " + con + "% or above.";
+            return;
+            }
 
             document.getElementById("output-percentage").innerHTML =
                 "Your current percentage is <span class='output-number'>" + current.toFixed(2) + "%</span>" +
@@ -281,10 +301,10 @@
 
     <div id="manual">
         <h2>Manual Check</h2>
-        <label for="cur">Enter total present days:</label>
+        <label for="cur">Enter total classes present:</label>
         <input type="number" id="cur" oninput="this.style.backgroundColor='lightblue'; this.style.borderColor='#28a745';"><br>
 
-        <label for="tot">Enter total conducted days:</label>
+        <label for="tot">Enter total classes conducted:</label>
         <input type="number" id="tot" oninput="this.style.backgroundColor='lightblue'; this.style.borderColor='#28a745';"><br>
 
         <label for="a">Enter number of classes you will attend:</label>

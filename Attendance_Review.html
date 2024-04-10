@@ -265,11 +265,12 @@
             if (current > con) {
         // Calculate i differently when con is less than cur
         j=(cur / p) - tot;
+        i=roundDown(j, 2);
 
-        i = j.toFixed(2)
+       
     } else {
         // Calculate i as before when con is greater than cur
-        i =parseInt(x);
+        i =x;
     }
     var f=-i;
     var d = i / 8;
@@ -278,16 +279,24 @@
             "Due to missed classes, it is impossible to get " + con + "% or above.";
             return;
             }
+
+            function roundDown(num, decimals) {
+            var multiplier = Math.pow(10, decimals);
+            return Math.floor(num * multiplier) / multiplier;
+        }
             var totalClassesAfterGoal = (current < con) ? (cur + i) : cur;
-            var totalClassesConductedAfterGoal = tot + Math.abs(i);
+            var totalClassesConductedAfterGoal =roundDown(tot + i, 2);
+            
+            
+
             var currentlessthanper = (current < con) ? i : f;
 
             document.getElementById("output-percentage").innerHTML =
                 "Your current percentage is <span class='output-number'>" + current.toFixed(2) + "%</span>" +
-                "<br>The number of classes required are <span class='output-number'>" + currentlessthanper +
-                "</span><br>Total Classes Present after attending required classes: <span class='output-number'>" + totalClassesAfterGoal +
-                "</span><br>Total Classes Conducted after attending required classes: <span class='output-number'>" + totalClassesConductedAfterGoal  +
-                "</span><br>This can be reached almost within <span class='output-number'>" + d.toFixed(2) + " working days</span> (assuming 8 classes per day)";
+                "<br>The number of classes required are <span class='output-number'>" + currentlessthanper.toFixed(2) +
+                "</span><br>Total Classes Present after attending required classes: <span class='output-number'>" + totalClassesAfterGoal.toFixed(3) +
+                "</span><br>Total Classes Conducted after attending required classes: <span class='output-number'>" + totalClassesConductedAfterGoal.toFixed(2)  +
+                "</span><br>This can be reached almost within <span class='output-number'>" + d.toFixed(2) +"   "+i+ " working days</span> (assuming 8 classes per day)";
 
             document.getElementById("output-percentage").style.display = "block";
             document.getElementById("home-btn").style.display = "block";

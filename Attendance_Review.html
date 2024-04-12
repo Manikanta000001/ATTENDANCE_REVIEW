@@ -237,6 +237,7 @@
             var cur = parseInt(document.getElementById("cur-goal").value);
             var tot = parseInt(document.getElementById("tot-goal").value);
             var con = parseInt(document.getElementById("con-goal").value);
+            var errorElement = document.getElementById("percentageGoal-error");
 
             if (isNaN(cur) || isNaN(tot) || isNaN(con)) {
                 document.getElementById("percentageGoal-error").innerHTML = "You haven't entered all details, please fill them.";
@@ -252,6 +253,15 @@
                 document.getElementById("percentageGoal-error").innerHTML = "Baagne Extral dhe********....please try something else.";
                 return;
             }
+            if (con === 0) {
+        // Clear any previous error messages
+        errorElement.innerHTML = "";
+        // Display split message
+        errorElement.innerHTML += "<div>Arrey wah! What a surprise, zero bhi aa gaya!</div>";
+        errorElement.innerHTML += "<div style='margin-top: 10px;'>Lagta hai ki a little motivation ki zaroorat hai to kick things off, </div>";
+        errorElement.innerHTML += "<div style='margin-top: 10px;'>what do you say?</div>";
+        return;
+    }
             var current = (cur / tot) * 100;
 
             var i;
